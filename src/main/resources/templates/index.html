@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Manager</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Company Dashboard</h1>
+
+    <div class="row">
+        <div class="card">
+            <h2>Employees</h2>
+            <div class="form-group">
+                <input type="text" id="empName" placeholder="Name">
+                <input type="text" id="empEmail" placeholder="Email">
+                <button onclick="addEmployee()">Add Employee</button>
+            </div>
+            <ul id="employeeList"></ul>
+        </div>
+
+        <div class="card" id="taskSection" style="display:none;">
+            <h2>Tasks for <span id="selectedEmpName"></span></h2>
+            <input type="hidden" id="selectedEmpId">
+
+            <div class="form-group">
+                <input type="text" id="taskDesc" placeholder="Task description...">
+                <button onclick="addTask()" class="btn-green">Add Task</button>
+            </div>
+            <ul id="taskList"></ul>
+        </div>
+    </div>
+</div>
+
+<script src="/js/main.js"></script>
+</body>
+</html>
