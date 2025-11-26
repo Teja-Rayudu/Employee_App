@@ -3,6 +3,7 @@ import com.example.Employee_app.Entity.Employee;
 import com.example.Employee_app.Entity.Task;
 import com.example.Employee_app.Repository.EmployeeRepository;
 import com.example.Employee_app.Repository.TaskRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +38,23 @@ public class EmplyeeTaskController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @PutMapping("/employees/{id}")
+    public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee details) {
+        return employeeRepo.findById(id).map(emp -> {
+            emp.setName(details.getName());
+            emp.setEmail(details.getEmail());
+            return ResponseEntity.ok(employeeRepo.save(emp));
+        }).orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/employees/{id}")
+    public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
+        return employeeRepo.findById(id).map(emp -> {
+            employeeRepo.delete(emp);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).<Void>build();
+        }).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).<Void>build());
+    }
+
     @PostMapping("/employees/{empId}/tasks")
     public ResponseEntity<Task> createTask(@PathVariable Long empId, @RequestBody Task task) {
         return employeeRepo.findById(empId).map(employee -> {
@@ -63,7 +81,7 @@ public class EmplyeeTaskController {
     public ResponseEntity<Void> deleteTask(@PathVariable Long taskId) {
         return taskRepo.findById(taskId).map(task -> {
             taskRepo.delete(task);
-            return ResponseEntity.ok().<Void>build();
-        }).orElse(ResponseEntity.notFound().build());
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).<Void>build();
+        }).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).<Void>build());
     }
 }

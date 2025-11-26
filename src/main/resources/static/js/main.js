@@ -196,4 +196,3 @@ window.onclick = function(event) {
         taskModal.style.display = "none";
     }
 }
-
