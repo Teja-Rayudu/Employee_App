@@ -49,4 +49,21 @@ public class EmplyeeTaskController {
     public List<Task> getTasksByEmployee(@PathVariable Long empId) {
         return taskRepo.findByEmployeeId(empId);
     }
+
+    @PutMapping("/tasks/{taskId}")
+    public ResponseEntity<Task> updateTask(@PathVariable Long taskId, @RequestBody Task taskDetails) {
+        return taskRepo.findById(taskId).map(task -> {
+            task.setDescription(taskDetails.getDescription());
+            task.setStatus(taskDetails.getStatus());
+            return ResponseEntity.ok(taskRepo.save(task));
+        }).orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/tasks/{taskId}")
+    public ResponseEntity<Void> deleteTask(@PathVariable Long taskId) {
+        return taskRepo.findById(taskId).map(task -> {
+            taskRepo.delete(task);
+            return ResponseEntity.ok().<Void>build();
+        }).orElse(ResponseEntity.notFound().build());
+    }
 }
