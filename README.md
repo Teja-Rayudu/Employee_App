@@ -11,8 +11,8 @@ A simple, container-ready Employee Management application with a Spring Boot (Ja
 - 📦 **Maven**  
 - 🎨 **HTML CSS JS** (frontend)  
 - 🐳 **Docker**
--🫙 **Deployement - Render**
--🏬 **Database - PostreSQL (Neon-DB)**
+- 🫙 **Deployement - Render**
+- 🏬 **Database - PostreSQL (Neon-DB)**
 ---
 
 ## ⭐ Features
